@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     [super viewDidLoad];
     self.state = MWFCountdownStateStopped;
     self.startButton.backgroundColor = [UIColor redColor];
+    self.timeRemainingLabel.text = [NSString stringWithFormat:@"%d", 0];
 }
 
 - (void)didReceiveMemoryWarning
