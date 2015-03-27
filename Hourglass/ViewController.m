@@ -28,7 +28,6 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 {
     [super viewDidLoad];
     self.state = MWFCountdownStateStopped;
-    [self.startButton setTitle:@"Start" forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,7 +66,6 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     self.countdownSecondsLeft = 15;
     self.countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerDecrement:) userInfo:nil repeats:YES];
     self.state = MWFCountdownStateRunning;
-    [self.startButton setTitle:@"Pause" forState:UIControlStateNormal];
     self.timeRemainingLabel.text = [NSString stringWithFormat:@"%ld", (long)self.countdownSecondsLeft];
     self.view.backgroundColor = [UIColor greenColor];
 }
@@ -77,7 +75,6 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     NSLog(@"pause");
     self.state = MWFCountdownStatePaused;
     [self cancelCountdownTimer];
-    [self.startButton setTitle:@"Resume" forState:UIControlStateNormal];
     self.view.backgroundColor = [UIColor yellowColor];
 }
 
@@ -85,7 +82,6 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 {
     NSLog(@"resume");
     self.state = MWFCountdownStateRunning;
-    [self.startButton setTitle:@"Pause" forState:UIControlStateNormal];
     self.countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerDecrement:) userInfo:nil repeats:YES];
     self.view.backgroundColor = [UIColor greenColor];
 }
