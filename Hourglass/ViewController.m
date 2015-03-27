@@ -29,7 +29,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 {
     [super viewDidLoad];
     self.state = MWFCountdownStateStopped;
-    self.startButton.titleLabel.text = @"Start";
+//    self.startButton.titleLabel.text = @"Start"; // apparently, doesn't work
 }
 
 - (void)didReceiveMemoryWarning
