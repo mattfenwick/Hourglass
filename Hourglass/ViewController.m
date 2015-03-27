@@ -130,4 +130,11 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     // TODO flash the UI or something
 }
 
+#pragma mark - orientation
+
+- (NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskAll;
+}
+
 @end
