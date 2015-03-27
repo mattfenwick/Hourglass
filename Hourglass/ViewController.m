@@ -17,6 +17,8 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 @property (nonatomic) MWFCountdownState state;
 
 @property (nonatomic, weak) IBOutlet UIButton *startButton;
+@property (nonatomic, weak) IBOutlet UILabel *timeRemainingLabel;
+@property (nonatomic, weak) IBOutlet UILabel *countdownLabel;
 
 @end
 
