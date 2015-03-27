@@ -18,7 +18,6 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 
 @property (nonatomic, weak) IBOutlet UIButton *startButton;
 @property (nonatomic, weak) IBOutlet UILabel *timeRemainingLabel;
-@property (nonatomic, weak) IBOutlet UILabel *countdownLabel;
 
 @end
 
@@ -29,7 +28,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 {
     [super viewDidLoad];
     self.state = MWFCountdownStateStopped;
-//    self.startButton.titleLabel.text = @"Start"; // apparently, doesn't work
+    [self.startButton setTitle:@"Start" forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,8 +67,8 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     self.countdownSecondsLeft = 15;
     self.countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerDecrement:) userInfo:nil repeats:YES];
     self.state = MWFCountdownStateRunning;
-    self.startButton.titleLabel.text = @"Pause";
-    self.countdownLabel.text = [NSString stringWithFormat:@"%ld", (long)self.countdownSecondsLeft];
+    [self.startButton setTitle:@"Pause" forState:UIControlStateNormal];
+    self.timeRemainingLabel.text = [NSString stringWithFormat:@"time remaining: %ld", (long)self.countdownSecondsLeft];
 }
 
 - (void)pause
@@ -77,14 +76,14 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     NSLog(@"pause");
     self.state = MWFCountdownStatePaused;
     [self cancelCountdownTimer];
-    self.startButton.titleLabel.text = @"Resume";
+    [self.startButton setTitle:@"Resume" forState:UIControlStateNormal];
 }
 
 - (void)resume
 {
     NSLog(@"resume");
     self.state = MWFCountdownStateRunning;
-    self.startButton.titleLabel.text = @"Pause";
+    [self.startButton setTitle:@"Pause" forState:UIControlStateNormal];
     self.countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerDecrement:) userInfo:nil repeats:YES];
 }
 
@@ -103,7 +102,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     if (self.countdownSecondsLeft > 0)
     {
         self.countdownSecondsLeft--;
-        self.countdownLabel.text = [NSString stringWithFormat:@"%ld", (long)self.countdownSecondsLeft];
+        self.timeRemainingLabel.text = [NSString stringWithFormat:@"time remaining: %ld", (long)self.countdownSecondsLeft];
     }
     else
     {
@@ -127,7 +126,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 - (void)countdownDidFinish
 {
     NSLog(@"countdown did finish");
-    self.countdownLabel.text = [NSString stringWithFormat:@"%d", 0];
+    self.timeRemainingLabel.text = [NSString stringWithFormat:@"time remaining: %d", 0];
     // TODO flash the UI or something
 }
 
