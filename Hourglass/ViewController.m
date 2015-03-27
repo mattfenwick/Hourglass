@@ -69,6 +69,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     self.state = MWFCountdownStateRunning;
     [self.startButton setTitle:@"Pause" forState:UIControlStateNormal];
     self.timeRemainingLabel.text = [NSString stringWithFormat:@"%ld", (long)self.countdownSecondsLeft];
+    self.view.backgroundColor = [UIColor greenColor];
 }
 
 - (void)pause
@@ -77,6 +78,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     self.state = MWFCountdownStatePaused;
     [self cancelCountdownTimer];
     [self.startButton setTitle:@"Resume" forState:UIControlStateNormal];
+    self.view.backgroundColor = [UIColor yellowColor];
 }
 
 - (void)resume
@@ -85,6 +87,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     self.state = MWFCountdownStateRunning;
     [self.startButton setTitle:@"Pause" forState:UIControlStateNormal];
     self.countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerDecrement:) userInfo:nil repeats:YES];
+    self.view.backgroundColor = [UIColor greenColor];
 }
 
 - (void)stop
@@ -127,6 +130,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 {
     NSLog(@"countdown did finish");
     self.timeRemainingLabel.text = [NSString stringWithFormat:@"%d", 0];
+    self.view.backgroundColor = [UIColor redColor];
     // TODO flash the UI or something
 }
 
