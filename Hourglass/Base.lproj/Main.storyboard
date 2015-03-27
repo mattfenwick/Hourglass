@@ -26,22 +26,23 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FgV-Bn-CuV" userLabel="TimeRemaining">
-                                <rect key="frame" x="200" y="200" width="200" height="200"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="1F5-kp-ERk"/>
-                                    <constraint firstAttribute="height" constant="200" id="t3Q-3J-cDU"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="150"/>
+                                <rect key="frame" x="16" y="20" width="568" height="560"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="300"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="widthClass=compact">
+                                    <fontDescription key="fontDescription" type="system" pointSize="150"/>
+                                </variation>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.87139605220000005" blue="0.085676764459999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="FgV-Bn-CuV" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Adg-jm-P44"/>
                             <constraint firstAttribute="centerX" secondItem="FgV-Bn-CuV" secondAttribute="centerX" id="UiM-o9-FVg"/>
                             <constraint firstAttribute="centerY" secondItem="FgV-Bn-CuV" secondAttribute="centerY" id="WQq-qp-3rC"/>
                             <constraint firstAttribute="centerX" secondItem="FSX-42-Hno" secondAttribute="centerX" id="WzN-Ky-zq4"/>
                             <constraint firstItem="FSX-42-Hno" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="eDC-q9-553"/>
+                            <constraint firstItem="FgV-Bn-CuV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="iNi-fV-VEa"/>
                             <constraint firstAttribute="centerY" secondItem="FSX-42-Hno" secondAttribute="centerY" constant="13" id="ood-wP-TPW"/>
                             <constraint firstItem="FSX-42-Hno" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="v6r-Vw-lF5"/>
                         </constraints>
