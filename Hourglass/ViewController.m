@@ -43,6 +43,10 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 - (void)appDidEnterBackground:(NSNotification *)notification
 {
     NSLog(@"view controller: app did enter background");
+    [self stop];
+    self.startButton.backgroundColor = [UIColor redColor];
+    self.countdownSecondsLeft = 15;
+    self.timeRemainingLabel.text = [NSString stringWithFormat:@"%ld", (long)self.countdownSecondsLeft];
 }
 
 - (void)didReceiveMemoryWarning
