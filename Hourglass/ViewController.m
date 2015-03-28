@@ -48,6 +48,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    NSLog(@"did receive memory warning");
 }
 
 - (void)dealloc
