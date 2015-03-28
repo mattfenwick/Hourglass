@@ -41,7 +41,16 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 - (void)appDidEnterBackground:(NSNotification *)notification
 {
     NSLog(@"view controller: app did enter background");
-    [self beginStopped];
+    switch (self.state) {
+        case MWFCountdownStateStopped:
+            break;
+        case MWFCountdownStateRunning:
+            [self runningToStopped];
+            break;
+        case MWFCountdownStatePaused:
+            [self pausedToStopped];
+            break;
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,15 +72,43 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     NSLog(@"start button tapped");
     switch (self.state) {
         case MWFCountdownStateStopped:
-            [self beginRunning];
+            [self stoppedToRunning];
             break;
         case MWFCountdownStateRunning:
-            [self beginPaused];
+            [self runningToPaused];
             break;
         case MWFCountdownStatePaused:
-            [self beginRunning];
+            [self pausedToRunning];
             break;
     }
+}
+
+#pragma mark - transitions
+
+- (void)stoppedToRunning
+{
+    [self beginRunning];
+    self.startButton.backgroundColor = [UIColor greenColor];
+}
+
+- (void)runningToPaused
+{
+    [self beginPaused];
+}
+
+- (void)pausedToRunning
+{
+    [self beginRunning];
+}
+
+- (void)runningToStopped
+{
+    [self beginStopped];
+}
+
+- (void)pausedToStopped
+{
+    [self beginStopped];
 }
 
 #pragma mark - states
@@ -89,7 +126,6 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 {
     self.state = MWFCountdownStateRunning;
     self.timeRemainingLabel.text = [NSString stringWithFormat:@"%ld", (long)self.countdownSecondsLeft];
-    self.startButton.backgroundColor = [UIColor greenColor];
     self.countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerDecrement:) userInfo:nil repeats:YES];
 }
 
