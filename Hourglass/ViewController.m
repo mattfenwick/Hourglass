@@ -27,9 +27,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.state = MWFCountdownStateStopped;
-    self.startButton.backgroundColor = [UIColor redColor];
-    self.timeRemainingLabel.text = [NSString stringWithFormat:@"%d", 0];
+    [self beginStopped];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
@@ -43,10 +41,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 - (void)appDidEnterBackground:(NSNotification *)notification
 {
     NSLog(@"view controller: app did enter background");
-    [self stop];
-    self.startButton.backgroundColor = [UIColor redColor];
-    self.countdownSecondsLeft = 15;
-    self.timeRemainingLabel.text = [NSString stringWithFormat:@"%ld", (long)self.countdownSecondsLeft];
+    [self beginStopped];
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,50 +63,41 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     NSLog(@"start button tapped");
     switch (self.state) {
         case MWFCountdownStateStopped:
-            [self start];
-            break;
-        case MWFCountdownStatePaused:
-            [self resume];
+            [self beginRunning];
             break;
         case MWFCountdownStateRunning:
-            [self pause];
+            [self beginPaused];
+            break;
+        case MWFCountdownStatePaused:
+            [self beginRunning];
             break;
     }
 }
 
-#pragma mark - countdown actions
+#pragma mark - states
 
-- (void)start
+- (void)beginStopped
 {
-    NSLog(@"start");
+    self.state = MWFCountdownStateStopped;
     self.countdownSecondsLeft = 15;
-    self.countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerDecrement:) userInfo:nil repeats:YES];
+    self.timeRemainingLabel.text = @"";
+    self.startButton.backgroundColor = [UIColor redColor];
+    [self cancelCountdownTimer];
+}
+
+- (void)beginRunning
+{
     self.state = MWFCountdownStateRunning;
     self.timeRemainingLabel.text = [NSString stringWithFormat:@"%ld", (long)self.countdownSecondsLeft];
     self.startButton.backgroundColor = [UIColor greenColor];
-}
-
-- (void)pause
-{
-    NSLog(@"pause");
-    self.state = MWFCountdownStatePaused;
-    [self cancelCountdownTimer];
-    self.startButton.backgroundColor = [UIColor yellowColor];
-}
-
-- (void)resume
-{
-    NSLog(@"resume");
-    self.state = MWFCountdownStateRunning;
     self.countdownTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerDecrement:) userInfo:nil repeats:YES];
-    self.startButton.backgroundColor = [UIColor greenColor];
 }
 
-- (void)stop
+- (void)beginPaused
 {
-    NSLog(@"stop");
+    self.state = MWFCountdownStatePaused;
+    self.startButton.backgroundColor = [UIColor yellowColor];
     [self cancelCountdownTimer];
-    self.state = MWFCountdownStateStopped;
 }
 
 #pragma mark - timer
@@ -126,7 +112,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     }
     else
     {
-        [self stop];
+        [self beginStopped];
         [self countdownDidFinish];
     }
 }
