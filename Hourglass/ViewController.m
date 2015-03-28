@@ -30,6 +30,19 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     self.state = MWFCountdownStateStopped;
     self.startButton.backgroundColor = [UIColor redColor];
     self.timeRemainingLabel.text = [NSString stringWithFormat:@"%d", 0];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
+- (void)appDidBecomeActive:(NSNotification *)notification
+{
+    NSLog(@"view controller: app did become active");
+}
+
+- (void)appDidEnterBackground:(NSNotification *)notification
+{
+    NSLog(@"view controller: app did enter background");
 }
 
 - (void)didReceiveMemoryWarning
@@ -40,6 +53,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 - (void)dealloc
 {
     NSLog(@"dealloc");
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - IBActions
