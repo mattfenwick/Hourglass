@@ -99,6 +99,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
 - (void)pausedToRunning
 {
     [self beginRunning];
+    [self setButtonBackgroundColor];
 }
 
 - (void)runningToStopped
@@ -145,6 +146,7 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     {
         self.countdownSecondsLeft--;
         self.timeRemainingLabel.text = [NSString stringWithFormat:@"%ld", (long)self.countdownSecondsLeft];
+        [self setButtonBackgroundColor];
     }
     else
     {
@@ -171,6 +173,14 @@ typedef NS_ENUM(NSInteger, MWFCountdownState)
     self.timeRemainingLabel.text = [NSString stringWithFormat:@"%d", 0];
     self.startButton.backgroundColor = [UIColor redColor];
     // TODO flash the UI or something
+}
+
+- (void)setButtonBackgroundColor
+{
+    CGFloat red = (15.0 - self.countdownSecondsLeft) / 15.0;
+    CGFloat green = self.countdownSecondsLeft / 15.0;
+    NSLog(@"red %f, green %f", red, green);
+    self.startButton.backgroundColor = [UIColor colorWithRed:red green:green blue:0 alpha:1];
 }
 
 #pragma mark - orientation
